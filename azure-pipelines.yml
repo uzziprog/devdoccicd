@@ -28,6 +28,14 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    projects: '**/*.csproj'
+    arguments: '--no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)'
+    zipAfterPublish: true
+    
 - task: VSTest@2
   inputs:
     platform: '$(buildPlatform)'
